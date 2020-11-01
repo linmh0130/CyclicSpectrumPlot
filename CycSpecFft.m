@@ -19,7 +19,7 @@ X = fft(x,2*MapN).';
 CS = zeros(MapN+1,MapN+1);
 for index_a = 0:MapN
     if ((M>1) && (mod(M,2) == 0))
-        for m = -M/2:M/2
+        for m = -M:2:M
             X1 = [X(mod(m+round(MapN/2)+index_a,2*MapN)+1:end),X(1:mod(m+round(MapN/2)+index_a,2*MapN))];
             X2 = [X(mod(m-round(MapN/2)-index_a,2*MapN)+1:end),X(1:mod(m-round(MapN/2)-index_a,2*MapN))];
             X1_down_rate = zeros(1,MapN+1);
@@ -32,7 +32,7 @@ for index_a = 0:MapN
         end
     else
         X1 = [X(mod(round(MapN/2)+index_a,2*MapN)+1:end),X(1:mod(round(MapN/2)+index_a,2*MapN))];
-        X2 = [X(mod(round(MapN/2)-index_a,2*MapN)+1:end),X(1:mod(round(MapN/2)-index_a,2*MapN))];
+        X2 = [X(mod(-round(MapN/2)-index_a,2*MapN)+1:end),X(1:mod(-round(MapN/2)-index_a,2*MapN))];
         X1_down_rate = zeros(1,MapN+1);
         X2_down_rate = zeros(1,MapN+1);
         for i = 1:MapN
