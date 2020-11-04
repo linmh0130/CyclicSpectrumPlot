@@ -14,7 +14,14 @@
 % Version 2020-11-1
 %
 function [f,alpha,CS] = CycSpecFft(x,MapN,fs,M)
-X = fft(x,2*MapN).'/sqrt(MapN);
+% X = fft(x,2*MapN).'/sqrt(MapN);
+span = lcm(2*MapN,2*length(x));
+spanRate = span/(2*MapN);
+X0 = fft(x,span)/sqrt(length(x));
+X = zeros(1,2*MapN);
+for i = 1:2*MapN
+    X(i) = X0(1+(i-1)*spanRate);
+end
 [f,alpha]=meshgrid(-fs/2:fs/MapN:fs/2,-fs/2:fs/MapN:fs/2);
 CS = zeros(MapN+1,MapN+1);
 for index_a = 0:MapN
